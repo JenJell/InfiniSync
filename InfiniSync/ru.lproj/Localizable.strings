@@ -1,0 +1,281 @@
+/* 
+  Localizable.strings
+  InfiniSync
+
+  Created by Александр Цыганков on 11.12.2021.
+  
+*/
+
+// - HomeScreen
+"device_information" = "Информация об устройстве";
+"firmware_version" = "Версия прошивки: ";
+"model" = "Модель: ";
+"update_stats" = "Стат. работы";
+"last_disconnect" = "Посл. разъединение: ";
+"uptime" = "Время безотказн. работы: ";
+"step_count" = "Счетчик шагов";
+"firmware_updates" = "Обновление прошивки";
+"firmware_update_is_available" = "Обновление прошивки доступно!";
+"no_updates_available" = "Нет доступных обновлений";
+"device_name" = "Имя устройства";
+"rename" = "Переименовать";
+"disconnect_alert_title" = "Are you sure you want to disconnect from this device?";
+"save" = "Save";
+
+// - SideMenu
+"home" = "Домой";
+"steps" = "Шагометр";
+"charts" = "Графики";
+"update" = "Обновления";
+"settings" = "Настройки";
+"bluetooth_off" = "Bluetooth выкл.";
+
+// - ChartView components
+"heart" = "Сердце: ";
+"battery" = "Аккумулятор: ";
+
+// - HeartChart
+"bpm" = "Уд. в мин.";
+"insufficient_heart_rate_data" = "Недостаточно данных о частоте пульса";
+"heart_rate_settings" = "Heart Rate Settings";
+"oops" = "Oops!";
+
+// - BetteryChart
+"insufficient_battery_data" = "Недостаточно данных об аккумуляторе";
+"battery_stats" = "Battery Stats";
+
+// - StepsView
+"week" = "Неделя";
+"current" = "Сегодня";
+"month" = "Месяц";
+
+// - StepProgressGauge
+"steps_goal" = "Цель шагов";
+
+// - StepWeeklyChart
+"steps_this_week" = "Шагов на этой неделе";
+
+// - Settings_Page
+"connect_options" = "Параметры подключения";
+"autoconnect_to_pinetime" = "Авт. подкл. к PineTime";
+"autoconnect_device_uuid" = "Авт. устройства UUID";
+"use_current_device_for_autoconnect" = "Использовать тек. уст-во для автоподключения";
+"autoconnect_device_cleared" = "Авт-ое подкл. устр-ва не выбрано";
+"clear_autoconnect_device" = "Очистить устройство автоподключения";
+"current_device_name" = "Текущее имя устройства: ";
+"enter_new_name" = "Введите новое имя";
+"rename_device" = "Переименовать устройство";
+"firmware_update_downloads" = "Загрузки обновлений прошивок";
+"show_newer_versions_only" = "Показывать только новые версии";
+"notifications" = "Уведомления";
+"enable_watch_notifications" = "Включить уведомления";
+"notify_about_low_battery" = "Уведомлять о низком заряде аккумулятора";
+"send_notification_to_pinetime" = "Отправить уведомление на PineTime";
+"find_lost_device" = "Find Lost";
+"graph_styles" = "Стили графиков";
+"filled_hrm_graph" = "Мониторинг сердечного ритма";
+"filled_battery_graph" = "Мониторинг аккумулятора";
+"graph_data" = "Графика данных";
+"clear_all_hrm_chart_data" = "Очистить все данные мониторинга сердечного ритма";
+"clear_all_steps_chart_data" = "Clear All Steps Chart Data";
+"clear_all_battery_chart_data" = "Очистить все данные мониторинга аккумулятора";
+"clear_chart_data_alert_title" = "Are you sure you want to clear all of the selected chart's data?";
+"onboarding_information" = "Onboarding информация";
+"open_onboarding_page" = "Открыть страницу Onboarding";
+"whats_new_page_this_version" = "Открыть страницу 'Что нового' для текущей версии";
+"debug_mode" = "Debug Mode";
+"enable_debug_mode" = "Enable Debug Mode";
+"debug_logs" = "Debug Logs";
+"no_logs" = "No Logs";
+"links" = "Ссылки";
+"donations" = "Поддержать";
+"copy" = "Copy";
+"weather" = "Weather";
+"weather_style" = "Weather Style";
+"search_for_locations" = "Search for Locations";
+"find_location" = "Use the search box above to find\na location";
+"update_step_count_goal_on_watch_1" = "To change your step goal, navigate to settings on";
+"update_step_count_goal_on_watch_2" = "and change it there.";
+
+// - BLEConnectView
+"available_devices" = "Доступные устройства";
+"waiting_for_bluetooth" = "Ожидание Bluetooth";
+"unnamed" = "Безымянный";
+"loading" = "";
+"need_help_connecting" = "";
+"devices" = "";
+"not_infinitime_device" = "It doesn't look like the device you selected is running InfiniTime.";
+"disconnect" = "Разъединить";
+"scanning" = "Сканирование";
+
+// - ConnectionHelpView
+"connection_help" = "";
+
+// - ChartSettingsSheetMain
+"select_date_range" = "Выберите диапазон дат";
+"date_range_selection" = "Выбор диапазона дат";
+"show_all" = "Показать все";
+"sliders" = "Слайдеры";
+"select_dates" = "Выбрать даты";
+"all_data_selected" = "Выбраны все данные";
+
+// - ChartSettingsSheetSliders
+"hours" = "Часы";
+"days" = "Дни";
+"weeks" = "Недели";
+
+// - ChartSettingsSheetDatePicker
+"start_date" = "Дата начала";
+"end_date" = "Дата окончания";
+
+// - ArbitraryNotificationSheet
+"placeholder_text" = "Введите текст тут";
+"send_notification" = "Отправить уведомление";
+"title" = "Заголовок";
+
+// - StepSettingsSheet
+"steps_settings" = "Настройка шагометра";
+"step_goal" = "Цель шагов";
+"add_steps" = "Добавить шаги";
+
+// - StepSettingsSheetGoalChange
+"change_step_goal" = "Изменить цель кол-во шагов";
+"enter_step_goal" = "Введите цель шагов";
+"submit_new_step_goal" = "Подтвердить новую цель шагов";
+
+// - StepSettingsSheetDatePicker
+"manually_add_step_count" = "Добавить кол-во шагов вручную";
+"select_date" = "Выберите дату";
+"enter_number_of_steps" = "Введите количество шагов";
+"submit_count" = "Подтвердить кол-во";
+
+// - DownloadView
+"available_downloads" = "Доступные загрузки";
+"firmware_download_links" = "Доступные загруки, ссылки";
+"software_update_available" = "Software Update Available";
+
+// - WhatsNew
+"whats_new_in" = "Что нового";
+"welcome_to_version" = "Добро пожаловать в версию";
+"welcome_text" = "InfiniSync! Надеюсь, вам понравятся функции, которые я добавил в приложение для этой версии. Не стесняйтесь обращаться ко мне по поводу любых проблем, которые у вас возникают, или изменений, которые вы хотели бы увидеть!";
+
+// - WhatsNewBody
+"whats_new_body_1" = "Another new UI!";
+"whats_new_body_2" = "Some new localizations. Please note that not all localizations have been updated for the new UI. If you're able to assist with localizations, please get in touch with us on the GitHub page, or feel free to submit a pull request with localizations. Any help in this capcity is MUCH appreciated!";
+
+// - Onboarding
+"welcome_to_InfiniSync" = "Добро пожаловать в InfiniSync!";
+"onboarding_text" = "Я очень рад, что вы готовы и можете протестировать эту бета-версию моего iOS приложения компаньена для InfiniTime! Прежде чем начать, убедитесь, что это приложение использует Bluetooth. Пожалуйста, сообщайте мне обо всех обнаруженных вами проблемах, сбоях или предлагаемых изменениях! Ваш отзыв позволяет нам с вами работать вместе, чтобы создать отличное приложение-компаньон. Отчеты приветствуются через TestFlight, либо через GitHub, Matrix или Mastodon (ссылки доступны во вкладке настроек).";
+
+// - OnboardingBody
+"other_notes" = "Other notes:";
+"other_notes_1" = "Уведомления в настоящее время не работают, поскольку для этого требуется, чтобы протокол Apple Notification Center Service (ANCS) был реализован в InfiniTime.";
+"other_notes_2" = "Элементы управления музыкой работают в InfiniTime, но только если вы воспроизводите музыку через приложение Apple Music. Общесистемное управление музыкой в iOS требует, чтобы в InfiniTime была реализована проприетарная служба Apple Media. На уровне приложений я действительно могу взаимодействовать только с Apple Music и не могу контролировать подкасты, видео на YouTube, громкость системы и т. д., пока AMS не будет добавлен в InfiniTime.";
+"other_notes_3" = "Ваш PineTime может поддерживать только одно соединение Bluetooth. Если у вас возникли проблемы с подключением, убедитесь, что ваш PineTime еще не подключен к другому устройству или другому приложению на этом устройстве.";
+"other_notes_4" = "Если PineTime по-прежнему не отображается как доступное устройство, перезагрузите часы, удерживая боковую кнопку на часах, пока не увидите зеленый логотип Pine64 Pinecone, а затем отпустите. В настоящее время существует проблема с Bluetooth в Infinitime, над которой разработчики работают очень усердно. Пожелайте им удачи!";
+
+// - OnboardingDismissButton
+"dismiss_button" = "Свободен";
+
+// - DFUWithBLE
+"update_firmware" = "Обновить прошивку";
+"current_firmware" = "Текушая прошивка";
+"firmware_file" = "Файл прошивки";
+"clear" = "Очистить";
+
+// - DFUWithoutBLE
+"bluetooth_not_available" = "Bluetooth не доступен";
+"please_enable_bluetooth_try_again" = "Пожалуйста включите Bluetooth и попробуйте снова.";
+
+// - DFUFileSelectButton
+"select_firmware_file" = "Выбрать файл прошивки";
+"select_file_source" = "Выбрать источник файла прошивки";
+"use_local_file" = "Использовать локальный файл";
+"download_firmware_file" = "Загрузить файл прошивки";
+
+// - DFUStartTransferButton
+"stop_transfer" = "Остановить передачу";
+"start_transfer" = "Начать передачу";
+"downloading" = "Загрузка";
+
+// - DFUComplete
+"transfer_completed" = "Передача завершена!";
+
+// - BatteryNotifications
+"battery_low" = "Низкий заряд аккумулятора";
+"battery_low_message" = "";
+
+// - MusicController
+"not_playing" = "Ничего не играет";
+
+// - ContentView
+"failed_set_time" = "Невозможно установить время";
+"failed_set_time_description" = "Не удалось установить время на ваших часах. Пожалуйста, отключите часы, а затем снова подключите.";
+"dismiss" = "Свободен";
+
+// - New Stuff
+"not_connected" = "";
+"tap_to_connect" = "";
+"customize_favorites" = "";
+"goal" = "";
+"heart_rate" = "";
+"battery_tilte" = "";
+"heart_tilte" = "";
+"welcome_text" = "";
+"connecting" = "";
+"start_pairing" = "";
+"stop_connecting" = "";
+"my_device" = "";
+"favorites" = "";
+"app_settings" = "";
+"app_theme" = "";
+"name" = "";
+"avaliable_themes" = "";
+"choose_app_theme" = "";
+"firmware_file_link" = "";
+"firmware_download_links" = "";
+"downloads" = "";
+"learn_more" = "";
+"software_update" = "";
+"local_file_info" = "";
+"install_older_version" = "";
+"up_to_date" = "";
+"pinetime_not_available" = "";
+"please_check_your_connection_and_try_again" = "";
+"download_and_install" = "";
+
+"battery_level" = "";
+"battery_usage" = "";
+
+"last_24_hours" = "";
+"last_10_days" = "";
+"battery_level_is" = "";
+"currently_unavailable" = "";
+
+"software_version" = "";
+"file_system_version" = "File System Version";
+"model_name" = "";
+"autoconnect_to_this" = "";
+"send_notification_to" = "";
+"connected_to" = "";
+
+"file_system" = "File System";
+"update_external_resources" = "Update External Resources";
+"external_resources_info" = "External resources are fonts and images stored in a seperate location on the watch to optimize storage and memory usage.";
+"success" = "Success!";
+"upload_files" = "Upload File(s)";
+"upload_selected_files" = "Upload Selected File(s)";
+"new_folder" = "New Folder";
+"create_folder" = "Create Folder";
+"delete" = "Delete";
+"unknown" = "Unknown";
+"back" = "Back";
+"watch_settings" = "Watch Settings";
+"display_timeout" = "Display Timeout";
+"time_format" = "Time Format";
+"hourly_chimes" = "Hourly Chimes";
+
+"enable_weather_data" = "Enable Weather Data";
+"use_current_location" = "Use Current Location";
+"set_location" = "Location";
+"always_allow_location_services" = "Always Allow Current Location";
