@@ -1,6 +1,6 @@
 //
 //  DownloadManager.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 9/26/21.
 //  

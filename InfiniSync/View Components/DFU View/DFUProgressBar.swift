@@ -1,6 +1,6 @@
 //
 //  DFUProgressBar.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 8/19/21.
 //  

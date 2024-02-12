@@ -1,17 +1,15 @@
 //
-//  SettingsView.swift
+//  DebugMenu.swift
 //  InfiniSync
 //
-//  Created by Alex Emry on 8/15/21.
+//  Created by Jen on 2/12/24.
 //
-//
-
 
 import Foundation
 import SwiftUI
 import CoreLocation
 
-struct Settings_Page: View {
+struct DebugMenu: View {
     @ObservedObject var bleManager = BLEManager.shared
     @ObservedObject var deviceInfo = BLEDeviceInfo.shared
     @ObservedObject var weatherController = WeatherController.shared
@@ -55,17 +53,15 @@ struct Settings_Page: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                Text(NSLocalizedString("settings", comment: ""))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Text(NSLocalizedString("debug_menu", comment: ""))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                    .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)

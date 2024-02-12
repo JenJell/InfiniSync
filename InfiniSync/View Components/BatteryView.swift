@@ -1,6 +1,6 @@
 //
 //  StepsView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 10/21/21.
 //
@@ -32,22 +32,20 @@ struct BatteryView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 15) {
+            ZStack() {
                 Button {
                     presMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 Text(NSLocalizedString("battery_tilte", comment: "Battery"))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                Spacer()
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)
@@ -80,7 +78,7 @@ struct BatteryView: View {
                 }
                 .ignoresSafeArea()
                 .padding(20)
-                .background(Color.gray.opacity(0.2))
+                .background(Color.gray.opacity(0.15))
                 .cornerRadius(30, corners: [.topLeft, .topRight])
             }
         }

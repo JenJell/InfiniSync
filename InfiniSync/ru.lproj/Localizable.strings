@@ -28,6 +28,7 @@
 "charts" = "Графики";
 "update" = "Обновления";
 "settings" = "Настройки";
+"debug_menu" = "Debug Menu";
 "bluetooth_off" = "Bluetooth выкл.";
 
 // - ChartView components

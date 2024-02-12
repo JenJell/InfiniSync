@@ -1,6 +1,6 @@
 //
 //  ConnectionHelpView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Liam Willey on 12/22/23.
 //

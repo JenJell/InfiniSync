@@ -1,6 +1,6 @@
 //
-//  InfiniSyncApp.swift
-//  InfiniSync
+//  InfiniLinkApp.swift
+//  InfiniLink
 //
 //  Created by Alex Emry on 8/5/21.
 //

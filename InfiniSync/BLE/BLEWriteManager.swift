@@ -1,6 +1,6 @@
 //
 //  Notifications.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 8/8/21.
 //

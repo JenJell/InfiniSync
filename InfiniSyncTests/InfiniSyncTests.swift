@@ -1,6 +1,6 @@
 //
-//  InfiniSyncTests.swift
-//  InfiniSyncTests
+//  InfiniLinkTests.swift
+//  InfiniLinkTests
 //
 //  Created by Alex Emry on 8/5/21.
 //

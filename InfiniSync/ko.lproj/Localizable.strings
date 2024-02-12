@@ -28,6 +28,7 @@
 "charts" = "차트";
 "update" = "업데이트";
 "settings" = "설정";
+"debug_menu" = "Debug Menu";
 "bluetooth_off" = "블루투스 꺼짐";
 
 // - ChartView components

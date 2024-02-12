@@ -1,6 +1,6 @@
 //
 //  Onboarding.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 8/29/21.
 //  

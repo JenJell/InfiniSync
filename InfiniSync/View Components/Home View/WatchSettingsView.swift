@@ -1,6 +1,6 @@
 //
 //  WatchSettingsView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Liam Willey on 2/11/24.
 //
@@ -29,35 +29,20 @@ struct WatchSettingsView: View {
     
     var content: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 15) {
+            ZStack() {
                 Button {
                     presMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 Text(NSLocalizedString("watch_settings", comment: ""))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                Spacer()
-                Button {
-                    // Save updated settings to watch?
-                } label: {
-                    Text(NSLocalizedString("save", comment: ""))
-                        .padding(14)
-                        .font(.body.weight(.semibold))
-                        .foregroundColor(Color.white)
-                        .background(Color.blue)
-                        .clipShape(Capsule())
-                        .foregroundColor(.primary)
-                }
-                .disabled(!hasMadeChanges)
-                .opacity(!hasMadeChanges ? 0.5 : 1.0)
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)

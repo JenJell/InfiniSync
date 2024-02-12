@@ -1,6 +1,6 @@
 //
 //  StepCountPersistenceManager.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 10/27/21.
 //

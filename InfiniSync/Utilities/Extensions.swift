@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Liam Willey on 1/5/24.
 //

@@ -1,6 +1,6 @@
 //
 //  BLE_FS.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 1/7/22.
 //
@@ -494,9 +494,11 @@ class BLEFSHandler : ObservableObject {
 
                 if entryNumber == 0 {
                     informationTrandfer[0].dirList.ls = []
+                    print("entryNumber 0")
                 } else if entryNumber == totalEntryNumber {
                     informationTrandfer[0].dirList.valid = true
                     informationTrandfer[0].group.leave()
+                    print("done")
                     return
                 }
                 let filePath = responseData.suffix(Int(filePathLength))
@@ -506,6 +508,7 @@ class BLEFSHandler : ObservableObject {
                     dir.modificationTime = Int(modificationTime)
                     dir.fileSize = Int(fileSize)
                     dir.flags = Int(flags)
+                    print(decodedString)
                     dir.pathNames = decodedString
                     informationTrandfer[0].dirList.ls.append(dir)
                 } else {

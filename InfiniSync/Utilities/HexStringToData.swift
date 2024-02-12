@@ -1,6 +1,6 @@
 //
 //  HexStringToData.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Cloned by Alex Emry on 8/4/21 (with many thanks) from https://gist.github.com/gamako/94c8cb8873cabb97291b5a839ead50ca
 //

@@ -1,6 +1,6 @@
 //
 //  DeviceView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by John Stanley on 11/16/21.
 //
@@ -255,18 +255,6 @@ struct DeviceView: View {
                 })
                 Spacer()
                     .frame(height: 6)
-                NavigationLink(destination: Settings_Page()) {
-                    HStack {
-                        Text(NSLocalizedString("settings", comment: ""))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.gray)
-                    }
-                    .modifier(RowModifier(style: .capsule))
-                }
-                Spacer()
-                    .frame(height: 6)
                 NavigationLink(destination: FileSystemView()) {
                     HStack {
                         Text(NSLocalizedString("file_system", comment: ""))
@@ -352,6 +340,7 @@ struct CustomScrollView<Content: View>: View {
     @ObservedObject var bleManager = BLEManager.shared
     @ObservedObject var bleManagerVal = BLEManagerVal.shared
     @ObservedObject var deviceInfo = BLEDeviceInfo.shared
+    @ObservedObject var deviceDataForSettings: DeviceData = deviceData
     
     @State private var scrollPosition: CGFloat = 0
     @State private var showDivider: Bool = false
@@ -364,82 +353,121 @@ struct CustomScrollView<Content: View>: View {
     let watchSpace = 0.28
     let watchScrollSpeed = 0.15
     
+    @State var debugView = false
+    @State var debugClick : Int = 0
+    @State var lastDebugClick : Date = Date()
+    
     var body: some View {
-        VStack(spacing: 0) {
-            GeometryReader { geometry in
-                ZStack() {
+        NavigationStack{
+            VStack(spacing: 0) {
+                GeometryReader { geometry in
                     ZStack() {
-                        Rectangle()
-                            .foregroundColor(.secondary)
-                            .frame(width:  geometry.size.width / 2.65, height:  geometry.size.width / 2.65, alignment: .center)
-                            .position(x: geometry.size.width / 2, y: (((geometry.size.height) * watchSpace / 2) + 55 + (self.scrollPosition - (geometry.size.height * watchSpace) * 1.45) * watchScrollSpeed).clamped(to: geometry.size.height*0.25...geometry.size.height*1.0))
-                            .blur(radius: 128)
-                            .opacity(0.75)
-                        GeometryReader { geometry in
-                            ZStack {
-                                WatchFaceView(watchface: .constant(-1))
-                                    .frame(width: geometry.size.width / 2.4, height: geometry.size.width / 2.4, alignment: .center)
-                                    .position(x: geometry.size.width / 2, y: (((geometry.size.height) * watchSpace / 2) + 55 + (self.scrollPosition - (geometry.size.height * watchSpace) * 1.45) * watchScrollSpeed))
-                            }
-                            .clipped(antialiased: true)
-                            .frame(width: geometry.size.width, height: (self.scrollPosition - geometry.safeAreaInsets.top).clamped(to: 0...geometry.size.height), alignment: .center)
-                        }
-                    }
-                    VStack {
-                        Spacer(minLength: scrollPosition.clamped(to: geometry.size.height*0.2...geometry.size.height))
-                        Color.clear
-                    }
-                    VStack(spacing: 0) {
-                        HStack(spacing: 12) {
-                            ZStack {
-                                Text("Blank")
-                                    .opacity(0.0)
-                                    .font(.system(size: 30))
-                                
-                                Text(deviceInfo.deviceName == "" ? "InfiniTime" : deviceInfo.deviceName)
-                                    .font(.title2.weight(.semibold))
-                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                        ZStack() {
+                            Rectangle()
+                                .foregroundColor(.secondary)
+                                .frame(width:  geometry.size.width / 2.65, height:  geometry.size.width / 2.65, alignment: .center)
+                                .position(x: geometry.size.width / 2, y: (((geometry.size.height) * watchSpace / 2) + 55 + (self.scrollPosition - (geometry.size.height * watchSpace) * 1.45) * watchScrollSpeed).clamped(to: geometry.size.height*0.25...geometry.size.height*1.0))
+                                .blur(radius: 128)
+                                .opacity(0.75)
+                            GeometryReader { geometry in
+                                ZStack {
+                                    WatchFaceView(watchface: .constant(-1))
+                                        .frame(width: geometry.size.width / 2.4, height: geometry.size.width / 2.4, alignment: .center)
+                                        .position(x: geometry.size.width / 2, y: (((geometry.size.height) * watchSpace / 2) + 55 + (self.scrollPosition - (geometry.size.height * watchSpace) * 1.45) * watchScrollSpeed))
+                                }
+                                .clipped(antialiased: true)
+                                .frame(width: geometry.size.width, height: (self.scrollPosition - geometry.safeAreaInsets.top).clamped(to: 0...geometry.size.height), alignment: .center)
                             }
                         }
-                        .padding(18)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        if showDivider {
-                            Divider()
+                        VStack {
+                            Spacer(minLength: scrollPosition.clamped(to: geometry.size.height*0.2...geometry.size.height))
+                            Color.clear
                         }
-                        ScrollView(showsIndicators: false) {
-                            Spacer(minLength: (geometry.size.height) * watchSpace)
-                            VStack() {
-                                GeometryReader{ geo in
-                                    AnyView(Color.clear
-                                        .frame(width: 0, height: 0)
-                                        .preference(key: SizePreferenceKey.self, value: geo.frame(in: .global).minY)
-                                    )}.onPreferenceChange(SizePreferenceKey.self) { preferences in
-                                        self.scrollPosition = preferences
-                                        
-                                        if scrollPosition - geometry.safeAreaInsets.top <= 64 {
-                                            withAnimation(.easeInOut(duration: 0.1)) {
-                                                self.showDivider = true
+                        VStack(spacing: 0) {
+                            HStack(spacing: 12) {
+                                ZStack {
+                                    Text("Blank")
+                                        .opacity(0.0)
+                                        .font(.system(size: 30))
+                                    
+                                    Text(deviceInfo.deviceName == "" ? "InfiniTime" : deviceInfo.deviceName)
+                                        .font(.title2.weight(.semibold))
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                }
+                            }
+                            .padding(18)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            if showDivider {
+                                Divider()
+                            }
+                            ScrollView(showsIndicators: false) {
+                                Spacer(minLength: (geometry.size.height) * watchSpace)
+                                VStack() {
+                                    GeometryReader{ geo in
+                                        AnyView(Color.clear
+                                            .frame(width: 0, height: 0)
+                                            .preference(key: SizePreferenceKey.self, value: geo.frame(in: .global).minY)
+                                        )}.onPreferenceChange(SizePreferenceKey.self) { preferences in
+                                            self.scrollPosition = preferences
+                                            
+                                            if scrollPosition - geometry.safeAreaInsets.top <= 64 {
+                                                withAnimation(.easeInOut(duration: 0.1)) {
+                                                    self.showDivider = true
+                                                }
+                                            } else {
+                                                withAnimation(.easeInOut(duration: 0.1)) {
+                                                    self.showDivider = false
+                                                }
                                             }
-                                        } else {
-                                            withAnimation(.easeInOut(duration: 0.1)) {
-                                                self.showDivider = false
+                                        }
+                                    content
+                                }
+                            }
+                            .onAppear {
+                                DownloadManager.shared.updateAvailable = DownloadManager.shared.checkForUpdates(currentVersion: BLEDeviceInfo.shared.firmware)
+                            }
+                            .onChange(of: deviceInfo.firmware) { firmware in
+                                if firmware != "" && bleManager.isConnectedToPinetime{
+                                    BLEFSHandler.shared.readSettings { settings in
+                                        DispatchQueue.main.async {
+                                            self.settings = settings
+                                            self.stepCountGoal = Int(settings.stepsGoal)
+                                            self.bleManagerVal.watchFace = Int(settings.watchFace)
+                                            self.bleManagerVal.pineTimeStyleData = settings.pineTimeStyle
+                                            self.bleManagerVal.timeFormat = settings.clockType
+                                            switch settings.weatherFormat {
+                                            case .Metric:
+                                                self.deviceDataForSettings.chosenWeatherMode = "Metric"
+                                            case .Imperial:
+                                                self.deviceDataForSettings.chosenWeatherMode = "Imperial"
                                             }
                                         }
                                     }
-                                content
-                            }
-                        }
-                        .onAppear {
-                            DownloadManager.shared.updateAvailable = DownloadManager.shared.checkForUpdates(currentVersion: BLEDeviceInfo.shared.firmware)
-                        }
-                        .onChange(of: deviceInfo.firmware) { firmware in
-                            if firmware != "" && bleManager.isConnectedToPinetime{
-                                BLEFSHandler.shared.readSettings { settings in
-                                    self.settings = settings
-                                    self.stepCountGoal = Int(settings.stepsGoal)
-                                    self.bleManagerVal.watchFace = Int(settings.watchFace)
                                 }
                             }
+                        }
+                        VStack {
+                            Button {
+                                if Date().timeIntervalSince(lastDebugClick) > 1.0 {
+                                    debugClick = 0
+                                }
+                                lastDebugClick = Date()
+                                debugClick += 1
+                                if debugClick >= 5 {
+                                    debugClick = 0
+                                    debugView = true
+                                }
+                            } label: {
+                                VStack {
+                                    Spacer()
+                                }
+                                .frame(maxWidth: .infinity, maxHeight: (self.scrollPosition - geometry.safeAreaInsets.top).clamped(to: 0...geometry.size.height))
+                                
+                            }
+                            .navigationDestination(isPresented: $debugView){
+                                DebugMenu()
+                            }
+                            Spacer()
                         }
                     }
                 }

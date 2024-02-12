@@ -1,6 +1,6 @@
 //
 //  WeatherController.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Jen on 1/16/24.
 //
@@ -179,11 +179,10 @@ class WeatherController: NSObject, ObservableObject, CLLocationManagerDelegate {
                 bleManagerVal.weatherInformation.maxTemperature = json["forecast"]["forecastday"][0]["day"]["maxtemp_c"].doubleValue
                 bleManagerVal.weatherInformation.minTemperature = json["forecast"]["forecastday"][0]["day"]["mintemp_c"].doubleValue
                 
-                let debugDescription = "WeatherAPI short description: \(json["forecast"]["forecastday"][0]["day"]["condition"]["text"])"
-                
-                print(debugDescription)
                 if debugMode {
-                    bleWriteManager.sendNotification(title: "NWS API Debug", body: debugDescription)
+                    let debugDescription = "WeatherAPI short description: \(json["forecast"]["forecastday"][0]["day"]["condition"]["text"])"
+                    print(debugDescription)
+                    bleWriteManager.sendNotification(title: "WAPI Debug", body: debugDescription)
                 }
                 
                 switch json["forecast"]["forecastday"][0]["day"]["condition"]["text"] {
@@ -285,9 +284,11 @@ class WeatherController: NSObject, ObservableObject, CLLocationManagerDelegate {
                 if json["features"][idx]["properties"]["temperature"]["qualityControl"].stringValue == "V" {
                     temperatureC = json["features"][idx]["properties"]["temperature"]["value"].doubleValue
                     
-                    let debugDescription = "NWS API short description: \(json["features"][idx]["properties"]["textDescription"])"
-                    print(debugDescription)
-                    bleWriteManager.sendNotification(title: "NWS API Debug", body: debugDescription)
+                    if debugMode {
+                        let debugDescription = "NWS API short description: \(json["features"][idx]["properties"]["textDescription"])"
+                        print(debugDescription)
+                        bleWriteManager.sendNotification(title: "NWS API Debug", body: debugDescription)
+                    }
                     
                     switch json["features"][idx]["properties"]["textDescription"] {
                         // The textDescription docs are out of date so these cases might be slightly different than the fetched data and may need to be updated

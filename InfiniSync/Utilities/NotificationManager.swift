@@ -1,6 +1,6 @@
 //
 //  NotificationManager.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Liam Willey on 1/4/24.
 //

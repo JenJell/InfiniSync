@@ -1,6 +1,6 @@
 //
 //  RenamedView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by John Stanley on 11/16/21.
 //
@@ -25,17 +25,14 @@ struct RenameView: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 Text(NSLocalizedString("name", comment: ""))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                    .frame(maxWidth: .infinity, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)

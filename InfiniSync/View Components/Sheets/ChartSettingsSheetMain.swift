@@ -1,6 +1,6 @@
 //
 //  ChartSettingsSheet.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 10/13/21.
 //

@@ -1,6 +1,6 @@
 //
 //  StepsView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 10/21/21.
 //
@@ -28,22 +28,20 @@ struct HeartView: View {
         let dataPoints = ChartManager.shared.convert(results: chartPoints)
         
         VStack(spacing: 0) {
-            HStack(spacing: 15) {
+            ZStack() {
                 Button {
                     presMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 Text(NSLocalizedString("heart_rate", comment: "Heart Rate"))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                Spacer()
                 Button {
                     chartManager.currentChart = .heart
                     SheetManager.shared.sheetSelection = .chartSettings
@@ -51,12 +49,11 @@ struct HeartView: View {
                 } label: {
                     Image(systemName: "gear")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .trailing)
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)
@@ -106,7 +103,7 @@ struct HeartView: View {
                 }
                 .ignoresSafeArea()
                 .padding(20)
-                .background(Color.gray.opacity(0.2))
+                .background(Color.gray.opacity(0.15))
                 .cornerRadius(30, corners: [.topLeft, .topRight])
             }
         }

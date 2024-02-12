@@ -1,6 +1,6 @@
 //
 //  BLEManager.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 8/3/21.
 //

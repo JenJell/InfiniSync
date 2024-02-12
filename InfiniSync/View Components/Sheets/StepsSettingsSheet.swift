@@ -1,6 +1,6 @@
 //
 //  StepsSettingsSheet.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 11/11/21.
 //  

@@ -1,6 +1,6 @@
 //
 //  StepProgressGauge.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 10/21/21.
 //  

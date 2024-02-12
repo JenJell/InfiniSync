@@ -1,6 +1,6 @@
 //
 //  DeviceData.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by John Stanley on 5/5/22.
 //

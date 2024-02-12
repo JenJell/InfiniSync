@@ -1,6 +1,6 @@
 //
 //  FileSystemView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Liam Willey on 2/9/24.
 //
@@ -116,24 +116,22 @@ struct FileSystemView: View {
     
     var content: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 15) {
+            ZStack() {
                 Button {
                     presMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .disabled(fileUploading)
                 .opacity(fileUploading ? 0.5 : 1.0)
                 Text(NSLocalizedString("file_system", comment: ""))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                Spacer()
                 Menu {
                     Button {
                         showNewFolderView = true
@@ -148,12 +146,11 @@ struct FileSystemView: View {
                 } label: {
                     Image(systemName: "plus")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(.white)
-                        .background(Color.blue)
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .trailing)
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
                 .disabled(fileUploading)
                 .opacity(fileUploading ? 0.5 : 1.0)
                 .fileImporter(isPresented: $showUploadSheet, allowedContentTypes: [.data], allowsMultipleSelection: true) { result in
@@ -199,6 +196,8 @@ struct FileSystemView: View {
                                 .modifier(RowModifier(style: .capsule))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             }
+                            .disabled(loadingFs || fileUploading)
+                            .opacity(loadingFs || fileUploading ? 0.5 : 1.0)
                         }
                         ForEach(commandHistory, id: \.self) { listItem in
                             let isFile = listItem.contains(".")
@@ -252,7 +251,7 @@ struct FileSystemView: View {
                                     ForEach(files, id: \.id) { file in
                                         Text(file.filename)
                                             .padding(12)
-                                            .background(Color.gray.opacity(0.2))
+                                            .background(Color.gray.opacity(0.15))
                                             .clipShape(Capsule())
                                     }
                                 }
@@ -268,7 +267,7 @@ struct FileSystemView: View {
                                     for file in files {
                                         let fileDataPath = file.url
                                         let fileData = try Data(contentsOf: fileDataPath!)
-                                        let _ = bleFSHandler.writeFile(data: fileData, path: directory + "/" + file.filename, offset: 0)
+                                        var _ = bleFSHandler.writeFile(data: fileData, path: directory + "/" + file.filename, offset: 0)
                                     }
                                     
                                     self.fileUploading = false
@@ -279,6 +278,7 @@ struct FileSystemView: View {
                                     lsDir(dir: directory)
                                 } catch {
                                     print(error.localizedDescription)
+                                    self.fileUploading = false
                                 }
                             }
                         } label: {

@@ -1,6 +1,6 @@
 //
 //  StepWeeklyGraph.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 11/10/21.
 //  

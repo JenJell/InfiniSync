@@ -1,6 +1,6 @@
 //
 //  DeviceNameTranslator.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 9/22/21.
 //  

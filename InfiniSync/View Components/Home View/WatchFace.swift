@@ -1,6 +1,6 @@
 //
 //  WatchFace.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Jen on 2/9/24.
 //
@@ -24,10 +24,14 @@ struct WatchFaceView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .shadow(color: colorScheme == .dark ? Color.black : Color.secondary, radius: 16, x: 0, y: 0)
-                    .brightness(colorScheme == .dark ? -0.02 : 0.035)
+                    .brightness(colorScheme == .dark ? -0.03 : 0.015)
                 ZStack() {
                     ZStack {
                         switch watchface == -1 ? bleManagerVal.watchFace : watchface {
+                        case 0:
+                            DigitalWF(geometry: .constant(geometry))
+                        case 1:
+                            AnalogWF(geometry: .constant(geometry))
                         case 2:
                             PineTimeStyleWF(geometry: .constant(geometry))
                         default:
@@ -53,34 +57,254 @@ struct WatchFaceView: View {
 }
 
 struct PineTimeStyleWF: View {
+    @ObservedObject var bleManagerVal = BLEManagerVal.shared
     @Environment(\.colorScheme) var colorScheme
     @Binding var geometry : GeometryProxy
+       
+    var hour24: Bool {
+    switch bleManagerVal.timeFormat {
+        case .H12:
+            return false
+        case .H24:
+            return true
+        default:
+            return true
+        }
+    }
     
-    var hour24 : Bool = false
+    var backgroundColor: Color {
+        switch bleManagerVal.pineTimeStyleData?.ColorBG {
+        case .White:
+            return .white
+        case .Silver:
+            return .lightGray
+        case .Gray:
+            return .gray
+        case .Black:
+            return .clear
+        case .Red:
+            return .red
+        case .Maroon:
+            // Add more accurate color
+            return .red
+        case .Yellow:
+            return .yellow
+        case .Olive:
+            // Add more accurate color
+            return .green
+        case .Lime:
+            // Add more accurate color
+            return .green
+        case .Green:
+            return .green
+        case .Cyan:
+            return .cyan
+        case .Teal:
+            return .teal
+        case .Blue:
+            return .blue
+        case .Navy:
+            // Add more accurate color
+            return .blue
+        case .Magenta:
+            // Add more accurate color
+            return .purple
+        case .Purple:
+            return .white
+        case .Orange:
+            return .orange
+        case .Pink:
+            return .pink
+        case nil:
+            return .teal
+        }
+    }
+    var barColor: Color {
+        switch bleManagerVal.pineTimeStyleData?.ColorBar {
+        case .White:
+            return .white
+        case .Silver:
+            return .lightGray
+        case .Gray:
+            return .gray
+        case .Black:
+            return .clear
+        case .Red:
+            return .red
+        case .Maroon:
+            // Add more accurate color
+            return .red
+        case .Yellow:
+            return .yellow
+        case .Olive:
+            // Add more accurate color
+            return .green
+        case .Lime:
+            // Add more accurate color
+            return .green
+        case .Green:
+            return .green
+        case .Cyan:
+            return .cyan
+        case .Teal:
+            return .teal
+        case .Blue:
+            return .blue
+        case .Navy:
+            // Add more accurate color
+            return .blue
+        case .Magenta:
+            // Add more accurate color
+            return .purple
+        case .Purple:
+            return .white
+        case .Orange:
+            return .orange
+        case .Pink:
+            return .pink
+        case nil:
+            return .teal
+        }
+    }
+    var timeColor: Color {
+        switch bleManagerVal.pineTimeStyleData?.ColorTime {
+        case .White:
+            return .white
+        case .Silver:
+            return .lightGray
+        case .Gray:
+            return .gray
+        case .Black:
+            return .clear
+        case .Red:
+            return .red
+        case .Maroon:
+            // Add more accurate color
+            return .red
+        case .Yellow:
+            return .yellow
+        case .Olive:
+            // Add more accurate color
+            return .green
+        case .Lime:
+            // Add more accurate color
+            return .green
+        case .Green:
+            return .green
+        case .Cyan:
+            return .cyan
+        case .Teal:
+            return .teal
+        case .Blue:
+            return .blue
+        case .Navy:
+            // Add more accurate color
+            return .blue
+        case .Magenta:
+            // Add more accurate color
+            return .purple
+        case .Purple:
+            return .white
+        case .Orange:
+            return .orange
+        case .Pink:
+            return .pink
+        case nil:
+            return .teal
+        }
+    }
     
     var body: some View {
         ZStack {
+            backgroundColor
             if !hour24 {
-                CustomTextView(text: "P\nM", font: .custom("JetBrainsMono-ExtraBold", size: geometry.size.width * 0.075), lineSpacing: -4)
-                    .foregroundColor(.white)
+                CustomTextView(text: Calendar.current.component(.hour, from: Date()) > 12 ? "P\nM" : "A\nM", font: .custom("JetBrainsMono-ExtraBold", size: geometry.size.width * 0.075), lineSpacing: -4)
+                    .foregroundColor(timeColor)
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .bottomLeading)
             }
-            if Calendar.current.component(.hour, from: Date()) > 12 && !hour24{
+            if Calendar.current.component(.hour, from: Date()) > 12 && !hour24 {
                 CustomTextView(text: "\(String(format: "%02d", Calendar.current.component(.hour, from: Date()) - 12))\n\(String(format: "%02d", Calendar.current.component(.minute, from: Date())))", font: .custom("OpenSans-light", size: geometry.size.width * 0.62), lineSpacing: -geometry.size.width * 0.35)
-                    .foregroundColor(.white)
+                    .foregroundColor(timeColor)
                     .position(x: geometry.size.width / 2.3, y: geometry.size.height / 2.0)
             } else {
                 CustomTextView(text: "\(String(format: "%02d", Calendar.current.component(.hour, from: Date())))\n\(String(format: "%02d", Calendar.current.component(.minute, from: Date())))", font: .custom("OpenSans-light", size: geometry.size.width * 0.62), lineSpacing: -geometry.size.width * 0.35)
-                    .foregroundColor(.white)
+                    .foregroundColor(timeColor)
                     .position(x: geometry.size.width / 2.3, y: geometry.size.height / 2.0)
             }
             GeometryReader { geometry in
                 Rectangle()
-                    .foregroundColor(.gray)
+                    .foregroundColor(barColor)
                     .position(x: geometry.size.width - ((geometry.size.width / 6.0) / 2), y: geometry.size.height / 2 - 2)
                     .frame(width: geometry.size.width / 6.0, height: geometry.size.height + 4, alignment: .center)
             }
         }
+        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+    }
+}
+
+struct AnalogWF: View {
+    @ObservedObject var bleManagerVal = BLEManagerVal.shared
+    @Environment(\.colorScheme) var colorScheme
+    @Binding var geometry: GeometryProxy
+
+    var body: some View {
+        ZStack {
+            let hour = Calendar.current.component(.hour, from: Date())
+            let hour12 = Double(hour >= 12 ? hour - 12 : hour)
+            let minute = Double(Calendar.current.component(.minute, from: Date()))
+            Image("AnalogFace")
+                .resizable()
+            Image("AnalogHour")
+                .resizable()
+                .rotationEffect(Angle(degrees: ((hour12 * 60) + minute) / 2))
+            Image("AnalogMin")
+                .resizable()
+                .rotationEffect(Angle(degrees: minute * 6))
+            Image("AnalogSec")
+                .resizable()
+                .rotationEffect(Angle(degrees: Double(Calendar.current.component(.second, from: Date())) * 6))
+        }
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+    }
+}
+
+
+struct DigitalWF: View {
+    @ObservedObject var bleManagerVal = BLEManagerVal.shared
+    @Environment(\.colorScheme) var colorScheme
+    @Binding var geometry: GeometryProxy
+    
+    var hour24: Bool {
+        switch bleManagerVal.timeFormat {
+        case .H12:
+            return false
+        case .H24:
+            return true
+        default:
+            return true
+        }
+    }
+
+    var body: some View {
+        ZStack {
+            if !hour24 {
+                CustomTextView(text: Calendar.current.component(.hour, from: Date()) > 12 ? "PM" : "AM", font: .custom("JetBrainsMono-Bold", size: geometry.size.width * 0.085), lineSpacing: 0)
+                    .foregroundColor(.white)
+                    .frame(width: geometry.size.width, height: geometry.size.height / 1.95, alignment: .topTrailing)
+            }
+            if Calendar.current.component(.hour, from: Date()) > 12 && !hour24 {
+                CustomTextView(text: "\(Calendar.current.component(.hour, from: Date()) - 12):\(String(format: "%02d", Calendar.current.component(.minute, from: Date())))", font: .custom("JetBrainsMono-ExtraBold", size: geometry.size.width * 0.33), lineSpacing: 0)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                    .position(x: geometry.size.width / 2.0, y: geometry.size.height / 1.9)
+            } else {
+                CustomTextView(text: "\(String(format: "%02d", Calendar.current.component(.hour, from: Date()))):\(String(format: "%02d", Calendar.current.component(.minute, from: Date())))", font: .custom("JetBrainsMono-ExtraBold", size: geometry.size.width * 0.33), lineSpacing: 0)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                    .position(x: geometry.size.width / 2.0, y: geometry.size.height / 1.9)
+            }
+        }
+            .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
     }
 }
 
@@ -94,6 +318,7 @@ struct UnknownWF: View {
                 .foregroundColor(.white)
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
         }
+        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
     }
 }
 

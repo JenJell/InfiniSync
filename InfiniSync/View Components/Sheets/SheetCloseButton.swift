@@ -1,6 +1,6 @@
 //
 //  SheetCloseButton.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 9/24/21.
 //  

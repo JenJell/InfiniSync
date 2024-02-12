@@ -1,6 +1,6 @@
 //
 //  StepsView.swift
-//  InfiniSync
+//  InfiniLink
 //
 //  Created by Alex Emry on 10/21/21.
 //
@@ -53,34 +53,31 @@ struct StepView: View {
     var body: some View {
         GeometryReader { g in
             VStack(spacing: 0) {
-                HStack(spacing: 15) {
+                ZStack() {
                     Button {
                         presMode.wrappedValue.dismiss()
                     } label: {
                         Image(systemName: "chevron.left")
                             .imageScale(.medium)
-                            .padding(14)
                             .font(.body.weight(.semibold))
                             .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                            .background(Color.gray.opacity(0.15))
-                            .clipShape(Circle())
+                            .frame(minWidth: 48, alignment: .leading)
                     }
-                    Text(NSLocalizedString("steps", comment: "Steps"))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    Text(NSLocalizedString("steps", comment: "Steps Title"))
                         .foregroundColor(.primary)
                         .font(.title3.weight(.semibold))
-                    Spacer()
                     Button {
                         SheetManager.shared.sheetSelection = .stepSettings
                         SheetManager.shared.showSheet = true
                     } label: {
                         Image(systemName: "plus")
                             .imageScale(.medium)
-                            .padding(14)
                             .font(.body.weight(.semibold))
                             .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                            .background(Color.gray.opacity(0.15))
-                            .clipShape(Circle())
+                            .frame(minWidth: 48, alignment: .trailing)
                     }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -127,7 +124,7 @@ struct StepView: View {
                     }
                     .ignoresSafeArea()
                     .padding(20)
-                    .background(Color.gray.opacity(0.2))
+                    .background(Color.gray.opacity(0.15))
                     .cornerRadius(30, corners: [.topLeft, .topRight])
                 }
             }

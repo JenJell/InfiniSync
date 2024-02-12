@@ -30,27 +30,29 @@ struct DFUWithBLE: View {
     @State var showOlderVersionView = false
     @State var externalResources = false
     
+    init() {
+        lockNavigation = false
+    }
+    
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            HStack(spacing: 15) {
+            ZStack() {
                 Button {
                     presMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
                         .imageScale(.medium)
-                        .padding(14)
                         .font(.body.weight(.semibold))
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                        .background(Color.gray.opacity(0.15))
-                        .clipShape(Circle())
+                        .frame(minWidth: 48, alignment: .leading)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .disabled(lockNavigation)
                 .opacity(lockNavigation ? 0.5 : 1.0)
                 Text(NSLocalizedString("software_update", comment: "Software Update"))
                     .foregroundColor(.primary)
                     .font(.title3.weight(.semibold))
-                Spacer()
-                HStack(spacing: 6) {
+                HStack(spacing: 16) {
                     DFURefreshButton()
                     Button {
                         showOlderVersionView.toggle()
@@ -58,15 +60,13 @@ struct DFUWithBLE: View {
                         Image(systemName: "doc")
                             .imageScale(.medium)
                             .font(.body.weight(.semibold))
-                            .padding(14)
                             .foregroundColor(colorScheme == .dark ? .white : .darkGray)
-                            .background(Color.gray.opacity(0.15))
-                            .clipShape(Circle())
                     }
                     .sheet(isPresented: $showOlderVersionView) {
                         DownloadView(openFile: $openFile, externalResources: $externalResources)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .trailing)
                 .disabled(lockNavigation)
                 .opacity(lockNavigation ? 0.5 : 1.0)
             }
@@ -325,10 +325,7 @@ struct DFURefreshButton: View {
                         .foregroundColor(colorScheme == .dark ? .white : .darkGray)
                 }
             }
-            .padding(14)
             .font(.body.weight(.semibold))
-            .background(Color.gray.opacity(0.15))
-            .clipShape(Circle())
         }
         .disabled(downloadManager.loadingResults)
     }

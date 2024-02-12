@@ -28,6 +28,7 @@
 "charts" = "圖表";
 "update" = "更新";
 "settings" = "設定";
+"debug_menu" = "Debug Menu";
 "bluetooth_off" = "藍芽關閉";
 
 // - ChartView components
