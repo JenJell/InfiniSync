@@ -89,7 +89,7 @@ struct FileSystemView: View {
             if !mkDir {
                 print("ERROR: failed to create folder with name: '\(name)'.")
             }
-            lsDir(dir: directory)
+            //lsDir(dir: directory)
             loadingFs = false
         }
     }

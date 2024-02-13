@@ -28,6 +28,8 @@ struct WatchFaceView: View {
                 ZStack() {
                     ZStack {
                         switch watchface == -1 ? bleManagerVal.watchFace : watchface {
+                        case -1:
+                            LoadingWF(geometry: .constant(geometry))
                         case 0:
                             DigitalWF(geometry: .constant(geometry))
                         case 1:
@@ -175,7 +177,7 @@ struct PineTimeStyleWF: View {
         case .Gray:
             return .gray
         case .Black:
-            return .clear
+            return .black
         case .Red:
             return .red
         case .Maroon:
@@ -305,6 +307,17 @@ struct DigitalWF: View {
             }
         }
             .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
+    }
+}
+
+struct LoadingWF: View {
+    @Binding var geometry : GeometryProxy
+    
+    var body: some View {
+        VStack {
+            ProgressView()
+        }
+        .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
     }
 }
 
