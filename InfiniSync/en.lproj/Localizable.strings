@@ -24,7 +24,8 @@
 
 // - SideMenu
 "home" = "Home";
-"steps" = "Steps";
+"steps_title" = "Steps";
+"steps" = "steps";
 "charts" = "Charts";
 "update" = "Update";
 "settings" = "Settings";

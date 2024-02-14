@@ -87,8 +87,8 @@ struct DebugMenu: View {
                                     .font(.body.weight(.medium))
                             }
                             .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
+                            .background(Color.gray.opacity(0.15))
+                            .foregroundColor(.primary)
                             .cornerRadius(20)
                         }
                         Menu {
@@ -118,8 +118,8 @@ struct DebugMenu: View {
                                     .font(.body.weight(.medium))
                             }
                             .padding()
-                            .background(Color.darkestGray)
-                            .foregroundColor(.white)
+                            .background(Color.gray.opacity(0.15))
+                            .foregroundColor(.primary)
                             .cornerRadius(20)
                         }
                     }

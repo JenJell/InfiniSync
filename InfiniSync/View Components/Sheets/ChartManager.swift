@@ -196,8 +196,9 @@ class ChartManager: ObservableObject {
 
 extension Date {
     func posHour() -> Date {
+        let clockFormat = DateFormatter.dateFormat (fromTemplate: "j",options:0, locale: Locale.current) == "HH" ? 1 : 0
         return Date(timeIntervalSinceReferenceDate:
-                        (timeIntervalSinceReferenceDate / (3600.0)).rounded(.toNearestOrAwayFromZero) * (3600.0) + ((timeIntervalSinceReferenceDate / (3600.0)).rounded(.toNearestOrAwayFromZero) * (3600.0) - (timeIntervalSinceReferenceDate / (3600.0 * 3.0)).rounded(.down) * (3600.0 * 3.0)))
+                        (timeIntervalSinceReferenceDate / (3600.0)).rounded(.up) * (3600.0) + (Double(clockFormat + 1) * 3600.0))
     }
 }
 #Preview {

@@ -24,6 +24,7 @@
 
 // - SideMenu
 "home" = "主頁";
+"steps_title" = "步數";
 "steps" = "步數";
 "charts" = "圖表";
 "update" = "更新";

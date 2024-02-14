@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 struct DeviceView: View {
     @ObservedObject var bleManager = BLEManager.shared
@@ -52,77 +53,9 @@ struct DeviceView: View {
         CustomScrollView(settings: $settings) {
             VStack(spacing: 10) {
                 VStack(alignment: .leading, spacing: 8) {
-                    HStack(spacing: 8) {
-                        NavigationLink(destination: BatteryView()) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(NSLocalizedString("battery_tilte", comment: ""))
-                                        .font(.title3.weight(.semibold))
-                                    Text(String(format: "%.0f", bleManager.batteryLevel) + "%")
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .font(.body.weight(.medium))
-                            }
-                            .aspectRatio(1, contentMode: .fill)
-                            .padding()
-                            .background(Color.green)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                        }
-                        NavigationLink(destination: DFUView()) {
-                            HStack {
-                                Text(NSLocalizedString("software_update", comment: ""))
-                                    .multilineTextAlignment(.leading)
-                                    .font(.title3.weight(.semibold))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .font(.body.weight(.medium))
-                            }
-                            .aspectRatio(1, contentMode: .fill)
-                            .padding()
-                            .background(Color.gray.opacity(0.3))
-                            .foregroundColor(.primary)
-                            .cornerRadius(20)
-                        }
-                    }
-                    HStack(spacing: 8) {
-                        NavigationLink(destination: StepView().navigationBarHidden(true)) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(NSLocalizedString("step_count", comment: ""))
-                                        .font(.title3.weight(.semibold))
-                                    Text("\(bleManagerVal.stepCount)")
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .font(.body.weight(.medium))
-                            }
-                            .aspectRatio(1, contentMode: .fill)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                        }
-                        NavigationLink(destination: HeartView()) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(NSLocalizedString("heart_rate", comment: ""))
-                                        .font(.title3.weight(.semibold))
-                                    Text(String(format: "%.0f", bleManagerVal.heartBPM) + " " + NSLocalizedString("bpm", comment: "BPM"))
-                                }
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .font(.body.weight(.medium))
-                            }
-                            .aspectRatio(1, contentMode: .fill)
-                            .padding()
-                            .background(Color.red)
-                            .foregroundColor(.white)
-                            .cornerRadius(20)
-                        }
-                    }
-                    
+                    StepButtonView()
+                    HeartButtonView()
+                    BatteryButtonView()
                     if weatherData {
                         VStack {
                             HStack {
@@ -154,12 +87,27 @@ struct DeviceView: View {
                             }
                         }
                         .padding()
-                        .background(LinearGradient(colors: [.blue, .yellow], startPoint: .leading, endPoint: .trailing))
-                        .foregroundColor(.white)
+                        .background(Color.gray.opacity(0.15))
+                        .foregroundColor(.primary)
                         .cornerRadius(15)
-                        Spacer()
-                            .frame(height: 6)
                     }
+                    NavigationLink(destination: DFUView()) {
+                        HStack {
+                            Text(NSLocalizedString("software_update", comment: ""))
+                                .multilineTextAlignment(.leading)
+                                .font(.title3.weight(.semibold))
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.body.weight(.medium))
+                        }
+                        .aspectRatio(1, contentMode: .fill)
+                        .padding()
+                        .background(Color.gray.opacity(0.15))
+                        .foregroundColor(.primary)
+                        .cornerRadius(20)
+                    }
+                    Spacer()
+                        .frame(height: 6)
                 }
                 if DownloadManager.shared.updateAvailable {
                     NavigationLink(destination: DFUView()) {
@@ -328,8 +276,145 @@ struct DeviceView: View {
     }
 }
 
+struct StepButtonView: View {
+    @ObservedObject var bleManagerVal = BLEManagerVal.shared
+    
+    var body: some View {
+        NavigationLink(destination: StepView().navigationBarHidden(true)) {
+            CustomStackView {
+                HStack {
+                    Image(systemName: "figure.walk")
+                        .foregroundColor(.blue)
+                        .font(.body.weight(.regular))
+                    Text(NSLocalizedString("steps_title", comment: ""))
+                        .foregroundColor(.blue)
+                        .font(.headline.weight(.semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                        .font(.body.weight(.regular))
+                }
+            } contentView: {
+                VStack {
+                    Spacer()
+                    HStack(alignment: .bottom) {
+                        Text("\(bleManagerVal.stepCount)")
+                            .foregroundColor(.primary)
+                            .font(.system(size: 32, weight: .semibold))
+                            .padding(.vertical, -(32/6))
+                        Text("steps")
+                            .foregroundColor(.gray)
+                            .font(.system(size: 14, weight: .semibold))
+                            .padding(-(14/10))
+                        Spacer()
+                    }
+                }
+                .frame(minHeight: 60)
+                
+            }
+        }
+    }
+}
+
+struct HeartButtonView: View {
+    @ObservedObject var bleManagerVal = BLEManagerVal.shared
+    
+    var body: some View {
+        NavigationLink(destination: HeartView()) {
+            CustomStackView {
+                HStack {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.red)
+                        .font(.body.weight(.regular))
+                    Text(NSLocalizedString("heart_rate", comment: ""))
+                        .foregroundColor(.red)
+                        .font(.headline.weight(.semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                        .font(.body.weight(.regular))
+                }
+            } contentView: {
+                VStack {
+                    Spacer()
+                    HStack(alignment: .bottom) {
+                        VStack(alignment: .leading) {
+                            Text("Latest")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14, weight: .semibold))
+                                .padding((14/10))
+                            HStack(alignment: .bottom) {
+                                Text(String(format: "%.0f", bleManagerVal.heartBPM))
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 32, weight: .semibold))
+                                    .padding(.vertical, -(32/6))
+                                Text("BPM")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .padding(-(14/10))
+                                Spacer()
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                .frame(minHeight: 60)
+            }
+        }
+    }
+}
+
+struct BatteryButtonView: View {
+    @ObservedObject var bleManager = BLEManager.shared
+    
+    var body: some View {
+        NavigationLink(destination: BatteryView()) {
+            CustomStackView {
+                HStack {
+                    Image(systemName: "battery.75percent")
+                        .foregroundColor(.green)
+                        .font(.body.weight(.regular))
+                    Text(NSLocalizedString("battery_tilte", comment: ""))
+                        .foregroundColor(.green)
+                        .font(.headline.weight(.semibold))
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                        .font(.body.weight(.regular))
+                }
+            } contentView: {
+                VStack {
+                    Spacer()
+                    HStack(alignment: .bottom) {
+                        VStack(alignment: .leading) {
+                            Text("Latest")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14, weight: .semibold))
+                                .padding((14/10))
+                            HStack(alignment: .bottom) {
+                                Text(String(format: "%.0f", bleManager.batteryLevel))
+                                    .foregroundColor(.primary)
+                                    .font(.system(size: 32, weight: .semibold))
+                                    .padding(.vertical, -(32/6))
+                                Text("percent")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 14, weight: .semibold))
+                                    .padding(-(14/10))
+                                Spacer()
+                            }
+                        }
+                        Spacer()
+                    }
+                }
+                .frame(minHeight: 60)
+            }
+        }
+    }
+}
+
 struct CustomScrollView<Content: View>: View {
     let content: Content
+    @State var offset: CGFloat = 0
     
     init(settings: Binding<Settings?>, @ViewBuilder content: @escaping () -> Content) {
         self._settings = settings
@@ -350,7 +435,7 @@ struct CustomScrollView<Content: View>: View {
     
     @AppStorage("stepCountGoal") var stepCountGoal = 10000
     
-    let watchSpace = 0.28
+    let watchSpace = 0.26
     let watchScrollSpeed = 0.15
     
     @State var debugView = false
@@ -362,6 +447,12 @@ struct CustomScrollView<Content: View>: View {
             VStack(spacing: 0) {
                 GeometryReader { geometry in
                     ZStack() {
+//                        GeometryReader{_ in
+//                            SpriteView(scene: Background(), options: [.allowsTransparency])
+//                        }
+//                        .blur(radius: 64)
+//                        .opacity(0.35)
+//                        .ignoresSafeArea()
                         ZStack() {
                             Rectangle()
                                 .foregroundColor(.secondary)
@@ -402,6 +493,12 @@ struct CustomScrollView<Content: View>: View {
                             }
                             ScrollView(showsIndicators: false) {
                                 Spacer(minLength: (geometry.size.height) * watchSpace)
+//                                Text(NSLocalizedString("Stats", comment: ""))
+//                                    .font(.title2.weight(.semibold))
+//                                    .foregroundColor(.gray)
+//                                    .padding(.bottom, -15)
+//                                    .padding(.horizontal)
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 VStack() {
                                     GeometryReader{ geo in
                                         AnyView(Color.clear
@@ -472,6 +569,7 @@ struct CustomScrollView<Content: View>: View {
                     }
                 }
             }
+            .background(Color("AppBackgroundColor"))
         }
     }
 }

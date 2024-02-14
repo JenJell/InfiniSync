@@ -24,6 +24,7 @@
 
 // - SideMenu
 "home" = "홈";
+"steps_title" = "걸음";
 "steps" = "걸음";
 "charts" = "차트";
 "update" = "업데이트";

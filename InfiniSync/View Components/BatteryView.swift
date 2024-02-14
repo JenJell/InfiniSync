@@ -21,10 +21,8 @@ struct BatteryView: View {
     let chartManager = ChartManager.shared
     
     var foregroundColor: Color {
-        if bleManager.batteryLevel <= 10 {
+        if bleManager.batteryLevel <= 20 {
             return .red
-        } else if bleManager.batteryLevel <= 20 {
-            return .orange
         } else {
             return .green
         }

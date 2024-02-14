@@ -24,7 +24,8 @@
 
 // - SideMenu
 "home" = "Домой";
-"steps" = "Шагометр";
+"steps_title" = "Шагометр";
+"steps" = "steps";
 "charts" = "Графики";
 "update" = "Обновления";
 "settings" = "Настройки";

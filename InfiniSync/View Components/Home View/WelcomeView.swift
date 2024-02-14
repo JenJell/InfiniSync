@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SpriteKit
 
 struct WelcomeView: View {
     @ObservedObject var bleManager = BLEManager.shared
@@ -41,6 +42,13 @@ struct WelcomeView: View {
                     }
                 } else {
                     ZStack {
+//                        GeometryReader{_ in
+//                            SpriteView(scene: Background(), options: [.allowsTransparency])
+//                        }
+//                        .blur(radius: 64)
+//                        .opacity(0.35)
+//                        .ignoresSafeArea()
+                        
                         GeometryReader { geometry in
                             Image("WatchHomePagePineTime")
                                 .resizable()
@@ -144,6 +152,24 @@ struct NeumorphicButtonStyle: ButtonStyle {
             .background(Color.blue)
             .clipShape(Capsule())
             .foregroundColor(.primary)
+    }
+}
+
+class Background: SKScene {
+    override func sceneDidLoad() {
+        size = UIScreen.main.bounds.size
+        
+        anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        scaleMode = .resizeFill
+        
+        backgroundColor = .clear
+        
+        let node = SKEmitterNode(fileNamed: "Background.sks")!
+        addChild(node)
+        
+        node.particlePositionRange.dx = UIScreen.main.bounds.width
+        node.particlePositionRange.dy = UIScreen.main.bounds.height
     }
 }
 

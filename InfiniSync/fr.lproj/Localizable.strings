@@ -24,7 +24,8 @@
 
 // - SideMenu
 "home" = "Accueil";
-"steps" = "Pas";
+"steps_title" = "Pas";
+"steps" = "pas";
 "charts" = "Graphique";
 "update" = "Mise à jour";
 "settings" = "Paramètres";
