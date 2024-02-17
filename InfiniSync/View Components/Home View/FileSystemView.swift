@@ -47,16 +47,19 @@ struct FileSystemView: View {
     
     func cdAndLs(dir: String) {
         loadingFs = true
+        let commandHistorySave = commandHistory
+        commandHistory = []
         
         let newDir = getDir(input: dir)
         DispatchQueue.global(qos: .default).async {
             let dirLS = BLEFSHandler.shared.listDir(path: newDir)
             if dirLS.valid {
-                clearList()
-                
                 directory = newDir
-                lsDir(dir: dir)
+                for dir in dirLS.ls {
+                    commandHistory.append("\(dir.pathNames)")
+                }
             } else {
+                commandHistory = commandHistorySave
                 print("ERROR: dir '\(newDir)' is not valid.")
             }
             loadingFs = false
@@ -89,7 +92,7 @@ struct FileSystemView: View {
             if !mkDir {
                 print("ERROR: failed to create folder with name: '\(name)'.")
             }
-            //lsDir(dir: directory)
+            lsDir(dir: directory)
             loadingFs = false
         }
     }
@@ -107,11 +110,15 @@ struct FileSystemView: View {
     }
     
     var body: some View {
-        if UptimeManager.shared.connectTime != nil {
-            content
-        } else {
-            DFUWithoutBLE(title: NSLocalizedString("pinetime_not_available", comment: ""), subtitle: NSLocalizedString("please_check_your_connection_and_try_again", comment: ""))
+        VStack {
+            if UptimeManager.shared.connectTime != nil {
+                content
+            } else {
+                DFUWithoutBLE(title: NSLocalizedString("pinetime_not_available", comment: ""), subtitle: NSLocalizedString("please_check_your_connection_and_try_again", comment: ""))
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("AppBackgroundColor"))
     }
     
     var content: some View {
@@ -147,7 +154,7 @@ struct FileSystemView: View {
                     Image(systemName: "plus")
                         .imageScale(.medium)
                         .font(.body.weight(.semibold))
-                        .foregroundColor(.white)
+                        .foregroundColor(.primary)
                         .frame(minWidth: 48, alignment: .trailing)
                 }
                 .frame(maxWidth: .infinity, alignment: .trailing)
@@ -177,6 +184,7 @@ struct FileSystemView: View {
             .padding()
             .frame(maxWidth: .infinity, alignment: .center)
             Divider()
+            let columns = [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())]
             ScrollView {
                 VStack {
                     if loadingFs {
@@ -187,7 +195,8 @@ struct FileSystemView: View {
                                 let currentDir = directory
                                 
                                 directory = removeLastPathComponent(currentDir)
-                                lsDir(dir: directory)
+                                cdAndLs(dir: directory)
+                                //lsDir(dir: directory)
                             } label: {
                                 HStack {
                                     Image(systemName: "chevron.left")
@@ -199,10 +208,12 @@ struct FileSystemView: View {
                             .disabled(loadingFs || fileUploading)
                             .opacity(loadingFs || fileUploading ? 0.5 : 1.0)
                         }
+                    }
+                    LazyVGrid(columns: columns) {
                         ForEach(commandHistory, id: \.self) { listItem in
                             let isFile = listItem.contains(".")
                             
-                            if listItem != "." && listItem != ".." && listItem != "settings.dat" {
+                            if listItem != "." && listItem != ".." {
                                 Button {
                                     if isFile {
                                         
@@ -211,16 +222,25 @@ struct FileSystemView: View {
                                         cdAndLs(dir: listItem)
                                     }
                                 } label: {
-                                    HStack {
-                                        Text(listItem)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                        Spacer()
-                                        if !isFile {
-                                            Image(systemName: "chevron.right")
-                                                .foregroundColor(.gray)
+                                    VStack {
+                                        VStack {
+                                            Spacer()
+                                            Image(systemName: isFile ? "doc.fill" : "folder.fill")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .foregroundColor(isFile ? .lightGray : .blue)
                                         }
+                                        .frame(maxWidth: .infinity, alignment: .bottom)
+                                        .frame(height: 64, alignment: .bottom)
+                                        Text(listItem)
+                                            .frame(maxWidth: .infinity, alignment: .top)
+                                            .lineLimit(2)
+                                            .foregroundColor(.primary)
+                                            .frame(height: 48, alignment: .top)
+                                            .padding(.top)
                                     }
-                                    .modifier(RowModifier(style: .capsule))
+                                    .padding()
+                                    //.modifier(RowModifier(style: .capsule))
                                 }
                                 .contextMenu {
                                     Button {

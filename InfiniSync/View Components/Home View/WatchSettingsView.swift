@@ -20,11 +20,15 @@ struct WatchSettingsView: View {
     @State var selection = 0
     
     var body: some View {
-        if UptimeManager.shared.connectTime != nil {
-            content
-        } else {
-            DFUWithoutBLE(title: NSLocalizedString("pinetime_not_available", comment: ""), subtitle: NSLocalizedString("please_check_your_connection_and_try_again", comment: ""))
+        VStack {
+            if UptimeManager.shared.connectTime != nil {
+                content
+            } else {
+                DFUWithoutBLE(title: NSLocalizedString("pinetime_not_available", comment: ""), subtitle: NSLocalizedString("please_check_your_connection_and_try_again", comment: ""))
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("AppBackgroundColor"))
     }
     
     var content: some View {

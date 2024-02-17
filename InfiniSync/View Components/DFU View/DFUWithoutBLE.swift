@@ -25,6 +25,7 @@ struct DFUWithoutBLE: View {
                 .multilineTextAlignment(.center)
         }
     }
+    
 }
 
 #Preview {

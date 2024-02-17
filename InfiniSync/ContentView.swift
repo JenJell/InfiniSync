@@ -40,8 +40,9 @@ struct ContentView: View {
     
     var body: some View {
         GeometryReader { geometry in
+            let topEdge = geometry.safeAreaInsets.top
             NavigationView {
-                WelcomeView()
+                WelcomeView(topEdge: topEdge)
                     .alert(isPresented: $bleManager.setTimeError, content: {
                         Alert(title: Text(NSLocalizedString("failed_set_time", comment: "")), message: Text(NSLocalizedString("failed_set_time_description", comment: "")), dismissButton: .default(Text(NSLocalizedString("dismiss_button", comment: ""))))})
                     .alert(isPresented: $showDisconnectConfDialog) {

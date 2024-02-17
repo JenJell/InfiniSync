@@ -59,6 +59,7 @@ struct RenameView: View {
             }
             .padding()
         }
+        .background(Color("AppBackgroundColor"))
         .navigationBarBackButtonHidden()
     }
 }

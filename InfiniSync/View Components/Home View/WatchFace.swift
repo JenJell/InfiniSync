@@ -23,7 +23,7 @@ struct WatchFaceView: View {
                 Image("WatchScreen")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .shadow(color: colorScheme == .dark ? Color.black : Color.secondary, radius: 16, x: 0, y: 0)
+                    .shadow(color: colorScheme == .dark ? Color.darkestGray : Color.lightGray, radius: 16, x: 0, y: 0)
                     .brightness(colorScheme == .dark ? -0.03 : 0.015)
                 ZStack() {
                     ZStack {
@@ -352,10 +352,13 @@ struct CustomTextView: View {
 
 #Preview {
     NavigationView {
-        DeviceView()
-            .onAppear {
-                BLEManager.shared.isConnectedToPinetime = true
-                BLEManagerVal.shared.firmwareVersion = "1.14.0"
-            }
+        GeometryReader { geometry in
+            let topEdge = geometry.safeAreaInsets.top
+            DeviceView(topEdge: topEdge)
+                .onAppear {
+                    BLEManager.shared.isConnectedToPinetime = true
+                    BLEManagerVal.shared.firmwareVersion = "1.14.0"
+                }
+        }
     }
 }

@@ -14,15 +14,19 @@ struct DFUView: View {
     @ObservedObject var uptimeManager = UptimeManager.shared
 	
 	var body: some View {
-        if bleManager.isSwitchedOn {
-            if uptimeManager.connectTime != nil {
-                DFUWithBLE()
+        VStack {
+            if bleManager.isSwitchedOn {
+                if uptimeManager.connectTime != nil {
+                    DFUWithBLE()
+                } else {
+                    DFUWithoutBLE(title: NSLocalizedString("pinetime_not_available", comment: ""), subtitle: NSLocalizedString("please_check_your_connection_and_try_again", comment: ""))
+                }
             } else {
-                DFUWithoutBLE(title: NSLocalizedString("pinetime_not_available", comment: ""), subtitle: NSLocalizedString("please_check_your_connection_and_try_again", comment: ""))
+                DFUWithoutBLE(title: NSLocalizedString("bluetooth_not_available", comment: ""), subtitle: NSLocalizedString("please_enable_bluetooth_try_again", comment: ""))
             }
-		} else {
-            DFUWithoutBLE(title: NSLocalizedString("bluetooth_not_available", comment: ""), subtitle: NSLocalizedString("please_enable_bluetooth_try_again", comment: ""))
-		}
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("AppBackgroundColor"))
 	}
 }
 

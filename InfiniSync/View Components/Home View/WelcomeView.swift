@@ -13,12 +13,15 @@ struct WelcomeView: View {
     @ObservedObject var deviceInfo = BLEDeviceInfo.shared
     @Environment(\.colorScheme) var colorScheme
     
+    var topEdge: CGFloat
+    
     var body: some View {
         VStack {
             if !bleManager.isConnectedToPinetime || deviceInfo.firmware == "" {
                 if bleManager.isConnectedToPinetime {
                     ZStack {
-                        DeviceView()
+                        DeviceView(topEdge: topEdge)
+                            .ignoresSafeArea(.all, edges: .top)
                             .disabled(true)
                             .blur(radius: 64)
                         Rectangle()
@@ -100,7 +103,7 @@ struct WelcomeView: View {
                 }
                 
             } else {
-                DeviceView()
+                DeviceView(topEdge: topEdge)
             }
         }
         .background {
